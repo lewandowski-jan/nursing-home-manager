@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'nursinghomemanager.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'xe',
+        'NAME': 'ora3',
         'USER': 'jlewand5',
         'PASSWORD': 'jlewand5',
         'HOST': 'ora3.elka.pw.edu.pl',
