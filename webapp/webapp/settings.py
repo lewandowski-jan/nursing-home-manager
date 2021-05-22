@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import cx_Oracle
 
+from config import NAME, USER, PASSWORD
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -78,9 +80,9 @@ WSGI_APPLICATION = 'webapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'seniordb',
-        'USER': 'system',
-        'PASSWORD': 'password1',
+        'NAME': NAME,
+        'USER': USER,
+        'PASSWORD': PASSWORD,
         'HOST': '127.0.0.1',
         'PORT': '1521',
     }
