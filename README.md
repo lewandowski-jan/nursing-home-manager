@@ -29,7 +29,9 @@ cd webapp
 copy con config.py
 
 NAME="databasename"
+
 USER="system"
+
 PASSWORD="userpassword"
 
 python manage.py makemigrations
