@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'db',
+    'database',
 ]
 
 MIDDLEWARE = [
@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'webapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': 'DBSENIOR',
+        'NAME': 'seniordb',
         'USER': 'system',
-        'PASSWORD': 'Python1!',
+        'PASSWORD': 'password1',
         'HOST': '127.0.0.1',
         'PORT': '1521',
     }
