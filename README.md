@@ -41,3 +41,32 @@ python manage.py migrate
 python manage.py createsuperuser
 
 python manage.py runserver
+
+## Linux/MacOS
+
+git clone https://github.com/iasiu/nursing-home-manager.git
+
+cd nursing-home-manager
+
+virtualenv env
+
+source env/bin/activate
+
+pip install -r requirements.txt
+
+cd webapp
+
+nano config.py
+"""
+NAME="databasename"
+USER="system"
+PASSWORD="userpassword"
+"""
+
+python manage.py makemigrations
+
+python manage.py migrate
+
+python manage.py createsuperuser
+
+python manage.py runserver
