@@ -19,7 +19,7 @@ class Poczty(models.Model):
         verbose_name_plural = 'poczty'
 
     def __str__(self):
-        return f'{self.id}: {self.kod_poczty} {self.poczta}'
+        return f'Poczta {self.id}: {self.kod_poczty} {self.poczta}'
 
 
 class Adresy(models.Model):
@@ -34,7 +34,7 @@ class Adresy(models.Model):
         verbose_name_plural = 'adresy'
 
     def __str__(self):
-        s = f'{self.id}: {self.miasto} ul. {self.ulica} {self.nr_budynku}'
+        s = f'Adres {self.id}: {self.miasto} ul. {self.ulica} {self.nr_budynku}'
         if self.nr_lokalu is not None:
             s += f'/{self.nr_lokalu}'
         return s
@@ -51,7 +51,7 @@ class DomySeniora(models.Model):
         verbose_name_plural = 'domy_seniora'
     
     def __str__(self):
-        return f'{self.id}: {self.nazwa}'
+        return f'Dom seniora {self.id}: {self.nazwa}'
 
 
 class Pokoje(models.Model):
@@ -66,7 +66,7 @@ class Pokoje(models.Model):
         verbose_name_plural = 'pokoje'
 
     def __str__(self):
-        return f'{self.id}: Poziom {self.pietro}, Oblozenie: {self.oblozenie}/{self.pojemnosc} Standard: {self.standard}, Wózek:{self.czy_przystosowany_do_wozka}'
+        return f'Pokoj {self.id}: Poziom {self.pietro}, Oblozenie: {self.oblozenie}/{self.pojemnosc} Standard: {self.standard}, Wózek:{self.czy_przystosowany_do_wozka}'
         
 
 
@@ -75,16 +75,14 @@ class Lozka(models.Model):
     dlugosc = models.BigIntegerField()
     opis = models.CharField(max_length=10, blank=True, null=True)
     pokoje = models.ForeignKey(Pokoje, on_delete=models.PROTECT)
+    
 
     class Meta:
         db_table = 'lozka'
         verbose_name_plural = 'lozka'
     
     def __str__(self):
-        s = f'{self.id}: Dł. ={self.dlugosc}cm, Antyodlezynowe: {self.czy_antyodlezynowe}'
-        if self.opis is not None:
-            s += f', {self.opis}'
-        return s 
+        return f'Lozko {self.id}: Dł. ={self.dlugosc}cm, Antyodlezynowe: {self.czy_antyodlezynowe}'
         
 
 class Seniorzy(models.Model):
@@ -100,7 +98,7 @@ class Seniorzy(models.Model):
         verbose_name_plural = 'seniorzy'
 
     def __str__(self):
-        return f'{self.id}: {self.imie} {self.nazwisko}  PESEL: {self.pesel}'
+        return f'Senior {self.id}: {self.imie} {self.nazwisko}  PESEL: {self.pesel}'
 
 
 class RodzajeLekow(models.Model):
@@ -111,7 +109,7 @@ class RodzajeLekow(models.Model):
         verbose_name_plural = 'rodzaje_lekow'
 
     def __str__(self):
-        return f'{self.id}: {self.nazwa}'
+        return f'Rodzaj leku {self.id}: {self.nazwa}'
 
 
 class Leki(models.Model):
@@ -127,7 +125,7 @@ class Leki(models.Model):
         verbose_name_plural = 'leki'
 
     def __str__(self):
-        return f'{self.id}: {self.nazwa}: {self.ilosc_opakowan} szt.'
+        return f'Lek {self.id}: {self.rodzajelekow}: {self.nazwa}, {self.ilosc_opakowan} szt.'
 
 
 class KartyZdrowia(models.Model):
@@ -143,7 +141,7 @@ class KartyZdrowia(models.Model):
         verbose_name_plural = 'karty_zdrowia'
 
     def __str__(self):
-        return f'{self.id}: {self.seniorzy.imie} {self.seniorzy.nazwisko}'
+        return f'Karta zdrowia {self.id}: {self.seniorzy.imie} {self.seniorzy.nazwisko}, {self.seniorzy.pesel}'
 
 
 class Stanowiska(models.Model):
@@ -155,7 +153,7 @@ class Stanowiska(models.Model):
         verbose_name_plural = 'stanowiska'
 
     def __str__(self):
-        return f'{self.id}: {self.nazwa}'
+        return f'Stanowisko {self.id}: {self.nazwa}'
 
 
 class Pracownicy(models.Model):
@@ -176,7 +174,7 @@ class Pracownicy(models.Model):
         verbose_name_plural = 'pracownicy'
 
     def __str__(self):
-        return f'{self.id}: {self.imie} {self.nazwisko}, {self.stanowiska.nazwa}'
+        return f'Pracownik {self.id}: {self.imie} {self.nazwisko}, {self.stanowiska.nazwa}'
 
 
 class Wynagrodzenia(models.Model):
@@ -190,4 +188,4 @@ class Wynagrodzenia(models.Model):
         verbose_name_plural = 'wynagrodzenia'
 
     def __str__(self):
-        return f'{self.id}: {self.pracownicy.imie} {self.pracownicy.nazwisko}, {self.kwota_podstawowa} + {self.kwota_dodatkowa}'
+        return f'Wynagrodzenie {self.id}: {self.pracownicy.imie} {self.pracownicy.nazwisko}, {self.kwota_podstawowa}zł. + {self.kwota_dodatkowa}zł.'
