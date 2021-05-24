@@ -58,8 +58,15 @@ class Pokoje(models.Model):
     pietro = models.BigIntegerField()
     pojemnosc = models.BigIntegerField()
     oblozenie = models.BigIntegerField()
-    standard = models.CharField(max_length=10)
-    czy_przystosowany_do_wozka = models.CharField(max_length=1)
+    standard = models.CharField(max_length=10, choices=(
+        ('standard', ('Standard')),
+        ('wysoki', ('Wysoki')),
+        ('premium', ('Premium'))
+    ))
+    czy_przystosowany_do_wozka = models.CharField(max_length=1, choices=(
+        ('T', ('Tak')),
+        ('N', ('Nie'))
+    ))
 
     class Meta:
         db_table = 'pokoje'
@@ -71,7 +78,10 @@ class Pokoje(models.Model):
 
 
 class Lozka(models.Model):
-    czy_antyodlezynowe = models.CharField(max_length=1)
+    czy_antyodlezynowe = models.CharField(max_length=1, choices=(
+        ('T', ('Tak')),
+        ('N', ('Nie'))
+    ))
     dlugosc = models.BigIntegerField()
     opis = models.CharField(max_length=10, blank=True, null=True)
     pokoje = models.ForeignKey(Pokoje, on_delete=models.PROTECT)
@@ -129,8 +139,16 @@ class Leki(models.Model):
 
 
 class KartyZdrowia(models.Model):
-    grupa_krwi = models.CharField(max_length=2)
-    czynnik_rh = models.CharField(max_length=1)
+    grupa_krwi = models.CharField(max_length=2, choices=(
+        ('AB', ('AB')),
+        ('A', ('A')),
+        ('B', ('B')),
+        ('0', ('0'))
+    ))
+    czynnik_rh = models.CharField(max_length=1, choices=(
+        ('-', ('-')),
+        ('+', ('+'))
+    ))
     uczulenia = models.CharField(max_length=500, blank=True, null=True)
     choroby = models.CharField(max_length=500, blank=True, null=True)
     seniorzy = models.OneToOneField(Seniorzy, on_delete=models.PROTECT)
