@@ -6,3 +6,4 @@ migrations/
 webapp/__pycache__/
 webapp/database/__pycache__/
 webapp/webapp/__pycache__/
+webapp/caretaker/__pycache__/
