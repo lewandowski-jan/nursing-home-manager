@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'database',
     'caretaker',
+    'manager',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
