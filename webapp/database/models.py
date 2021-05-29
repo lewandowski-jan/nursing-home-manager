@@ -180,7 +180,7 @@ class Leki(models.Model):
     nazwa = models.CharField(max_length=40)
     producent = models.CharField(max_length=100)
     opis = models.CharField(max_length=255, blank=True, null=True)
-    ilosc_opakowan = models.PositiveIntegerField
+    ilosc_opakowan = models.PositiveIntegerField(default=0)
     rodzajelekow = models.ForeignKey(RodzajeLekow, models.PROTECT)
     domyseniora = models.ForeignKey(DomySeniora, models.PROTECT)
 
