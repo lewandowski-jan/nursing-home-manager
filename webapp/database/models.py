@@ -58,9 +58,9 @@ class DomySeniora(models.Model):
 
 
 class Pokoje(models.Model):
-    pietro = models.BigIntegerField()
-    pojemnosc = models.BigIntegerField()
-    oblozenie = models.BigIntegerField()
+    pietro = models.PositiveIntegerField()
+    pojemnosc = models.PositiveIntegerField(default=0, editable=False)
+    oblozenie = models.PositiveIntegerField(default=0, editable=False)
     standard = models.CharField(max_length=10, choices=(
         ('standard', ('Standard')),
         ('wysoki', ('Wysoki')),
@@ -85,7 +85,7 @@ class Lozka(models.Model):
         ('T', ('Tak')),
         ('N', ('Nie'))
     ))
-    dlugosc = models.BigIntegerField()
+    dlugosc = models.PositiveIntegerField()
     opis = models.CharField(max_length=10, blank=True, null=True)
     pokoje = models.ForeignKey(Pokoje, on_delete=models.PROTECT)
     
@@ -180,7 +180,7 @@ class Leki(models.Model):
     nazwa = models.CharField(max_length=40)
     producent = models.CharField(max_length=100)
     opis = models.CharField(max_length=255, blank=True, null=True)
-    ilosc_opakowan = models.BigIntegerField()
+    ilosc_opakowan = models.PositiveIntegerField
     rodzajelekow = models.ForeignKey(RodzajeLekow, models.PROTECT)
     domyseniora = models.ForeignKey(DomySeniora, models.PROTECT)
 

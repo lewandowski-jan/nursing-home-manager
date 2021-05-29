@@ -1,0 +1,26 @@
+{% extends 'root.html' %}
+
+{% block title %}Panel Managera{% endblock title %}
+
+{% block body %}
+
+<div class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'manager_workers' %}">Manager</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'manager_workers' %}">Pracownicy</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<ul>
+{% for worker in workers %}
+<li>{{worker.imie}} {{worker.nazwisko}}</li>
+{% endfor %}
+</ul>
+
+{% endblock body %}
