@@ -12,6 +12,7 @@ from django.db.models.signals import post_delete, post_save, pre_save
 from django.dispatch import receiver
 from model_utils import FieldTracker
 
+
 class Poczty(models.Model):
     kod_poczty = models.CharField(unique=True, max_length=6)
     poczta = models.CharField(max_length=30)
@@ -94,7 +95,7 @@ class Lozka(models.Model):
         verbose_name_plural = 'lozka'
     
     def __str__(self):
-        return f'Lozko {self.id}: Dł. ={self.dlugosc}cm, Antyodlezynowe: {self.czy_antyodlezynowe}'
+        return f'Lozko {self.id}: Dł. = {self.dlugosc}cm, Antyodlezynowe: {self.czy_antyodlezynowe}'
 
 @receiver(post_save, sender=Lozka)
 def post_save_lozka(sender, instance, **kwargs):
