@@ -8,7 +8,9 @@
 
 from django.db import models
 from django.db.models.fields import NullBooleanField
-
+from django.db.models.signals import post_delete, post_save, pre_save
+from django.dispatch import receiver
+from model_utils import FieldTracker
 
 class Poczty(models.Model):
     kod_poczty = models.CharField(unique=True, max_length=6)
@@ -93,15 +95,31 @@ class Lozka(models.Model):
     
     def __str__(self):
         return f'Lozko {self.id}: Dł. ={self.dlugosc}cm, Antyodlezynowe: {self.czy_antyodlezynowe}'
-        
+
+@receiver(post_save, sender=Lozka)
+def post_save_lozka(sender, instance, **kwargs):
+    room = instance.pokoje
+    beds = Lozka.objects.all().filter(pokoje=room)
+    room.pojemnosc = len(beds)
+    room.save()
+
+@receiver(post_delete, sender=Lozka)
+def post_delete_lozka(sender, instance, **kwargs):
+    room = instance.pokoje
+    beds = Lozka.objects.all().filter(pokoje=room)
+    room.pojemnosc = len(beds)
+    room.save()
+
 
 class Seniorzy(models.Model):
     pesel = models.CharField(max_length=11, blank=True, null=True)
     imie = models.CharField(max_length=20)
     nazwisko = models.CharField(max_length=30)
     zdjecie = models.BinaryField(blank=True, null=True)
-    domyseniora = models.ForeignKey(DomySeniora, models.PROTECT)
-    lozka = models.OneToOneField(Lozka, on_delete=models.PROTECT)
+    domyseniora = models.ForeignKey(DomySeniora, on_delete=models.PROTECT)
+    lozka = models.OneToOneField(Lozka, on_delete=models.PROTECT, blank=True, null=True)
+
+    tracker = FieldTracker(fields=['lozka'])
 
     class Meta:
         db_table = 'seniorzy'
@@ -109,6 +127,41 @@ class Seniorzy(models.Model):
 
     def __str__(self):
         return f'Senior {self.id}: {self.imie} {self.nazwisko}  PESEL: {self.pesel}'
+    
+
+@receiver(post_save, sender=Seniorzy)
+def post_save_seniorzy(sender, instance, **kwargs):
+    if instance.tracker.has_changed('lozka'):
+        room = None
+
+        if instance.lozka != None:
+            room = instance.lozka.pokoje
+        else:
+            bed = Lozka.objects.get(id=instance.tracker.previous('lozka'))
+            room = bed.pokoje
+
+        beds = Lozka.objects.all().filter(pokoje=room)
+        seniors = Seniorzy.objects.all()
+        counter = 0
+        for senior in seniors:
+            if senior.lozka in beds:
+                counter += 1
+        room.oblozenie = counter
+        room.save()
+
+@receiver(post_delete, sender=Seniorzy)
+def post_delete_seniorzy(sender, instance, **kwargs):
+    if instance.tracker.has_changed('lozka'):
+        if instance.lozka != None:
+            room = instance.lozka.pokoje
+            beds = Lozka.objects.all().filter(pokoje=room)
+            seniors = Seniorzy.objects.all()
+            counter = 0
+            for senior in seniors:
+                if senior.lozka in beds:
+                    counter += 1
+            room.oblozenie = counter
+            room.save()
 
 
 class RodzajeLekow(models.Model):
@@ -135,7 +188,7 @@ class Leki(models.Model):
         verbose_name_plural = 'leki'
 
     def __str__(self):
-        return f'Lek {self.id}: {self.rodzajelekow}: {self.nazwa}, {self.ilosc_opakowan} szt.'
+        return f'Lek {self.id}: {self.nazwa} {self.rodzajelekow.nazwa}, {self.ilosc_opakowan} szt.'
 
 
 class KartyZdrowia(models.Model):
@@ -152,7 +205,6 @@ class KartyZdrowia(models.Model):
     uczulenia = models.CharField(max_length=500, blank=True, null=True)
     choroby = models.CharField(max_length=500, blank=True, null=True)
     seniorzy = models.OneToOneField(Seniorzy, on_delete=models.PROTECT)
-    leki = models.ManyToManyField(Leki, blank=True)
 
     class Meta:
         db_table = 'karty_zdrowia'
@@ -160,6 +212,22 @@ class KartyZdrowia(models.Model):
 
     def __str__(self):
         return f'Karta zdrowia {self.id}: {self.seniorzy.imie} {self.seniorzy.nazwisko}, {self.seniorzy.pesel}'
+
+
+class PrzyjmowaneLeki(models.Model):
+    lek = models.OneToOneField(Leki, on_delete=models.PROTECT)
+    karta_zdrowia = models.OneToOneField(KartyZdrowia, on_delete=models.PROTECT)
+    data_od = models.DateField()
+    data_do = models.DateField()
+    dawka = models.CharField(max_length=100)
+    czestotliwosc = models.CharField(max_length=100)
+
+    class Meta:
+        db_table = 'przyjmowane_leki'
+        verbose_name_plural = 'przyjmowane_leki'
+
+    def __str__(self):
+        return f'Przyjmowany Lek {self.id}: {self.lek.nazwa}, {self.karta_zdrowia.seniorzy.imie} {self.karta_zdrowia.seniorzy.nazwisko}, dawka: {self.dawka}, częstotliwość: {self.czestotliwosc}'
 
 
 class Stanowiska(models.Model):
