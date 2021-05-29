@@ -3,3 +3,6 @@ env
 webapp/config.py
 webapp/dbsenior
 migrations/
+webapp/__pycache__/
+webapp/database/__pycache__/
+webapp/webapp/__pycache__/
