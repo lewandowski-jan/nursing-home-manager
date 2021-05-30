@@ -58,6 +58,7 @@ class DomySeniora(models.Model):
 
 
 class Pokoje(models.Model):
+    numer = models.PositiveIntegerField(unique=True)
     pietro = models.PositiveIntegerField()
     pojemnosc = models.PositiveIntegerField(default=0, editable=False)
     oblozenie = models.PositiveIntegerField(default=0, editable=False)
@@ -76,7 +77,7 @@ class Pokoje(models.Model):
         verbose_name_plural = 'pokoje'
 
     def __str__(self):
-        return f'Pokoj {self.id}: Poziom {self.pietro}, Oblozenie: {self.oblozenie}/{self.pojemnosc} Standard: {self.standard}, Wózek:{self.czy_przystosowany_do_wozka}'
+        return f'Pokój nr {self.numer}: Piętro {self.pietro}, Oblozenie: {self.oblozenie}/{self.pojemnosc}, Standard: {self.standard}, Wózek:{self.czy_przystosowany_do_wozka}'
         
 
 
@@ -112,6 +113,32 @@ def post_delete_lozka(sender, instance, **kwargs):
     room.save()
 
 
+class KartyZdrowia(models.Model):
+    grupa_krwi = models.CharField(max_length=2, choices=(
+        ('AB', ('AB')),
+        ('A', ('A')),
+        ('B', ('B')),
+        ('0', ('0'))
+    ))
+    czynnik_rh = models.CharField(max_length=1, choices=(
+        ('-', ('-')),
+        ('+', ('+'))
+    ))
+    uczulenia = models.CharField(max_length=500, blank=True, null=True)
+    choroby = models.CharField(max_length=500, blank=True, null=True)
+
+    class Meta:
+        db_table = 'karty_zdrowia'
+        verbose_name_plural = 'karty_zdrowia'
+
+    def __str__(self):
+        senior = Seniorzy.objects.all().filter(karty_zdrowia=self)
+        if len(senior) == 1:
+            return f'Karta zdrowia {self.id}: {senior[0].imie} {senior[0].nazwisko} {senior[0].id}'
+        return f'Karta zdrowia {self.id}'
+        
+
+
 class Seniorzy(models.Model):
     pesel = models.CharField(max_length=11, blank=True, null=True)
     imie = models.CharField(max_length=20)
@@ -119,6 +146,7 @@ class Seniorzy(models.Model):
     zdjecie = models.BinaryField(blank=True, null=True)
     domyseniora = models.ForeignKey(DomySeniora, on_delete=models.PROTECT)
     lozka = models.OneToOneField(Lozka, on_delete=models.PROTECT, blank=True, null=True)
+    karty_zdrowia = models.OneToOneField(KartyZdrowia, on_delete=models.PROTECT)
 
     tracker = FieldTracker(fields=['lozka'])
 
@@ -192,32 +220,9 @@ class Leki(models.Model):
         return f'Lek {self.id}: {self.nazwa} {self.rodzajelekow.nazwa}, {self.ilosc_opakowan} szt.'
 
 
-class KartyZdrowia(models.Model):
-    grupa_krwi = models.CharField(max_length=2, choices=(
-        ('AB', ('AB')),
-        ('A', ('A')),
-        ('B', ('B')),
-        ('0', ('0'))
-    ))
-    czynnik_rh = models.CharField(max_length=1, choices=(
-        ('-', ('-')),
-        ('+', ('+'))
-    ))
-    uczulenia = models.CharField(max_length=500, blank=True, null=True)
-    choroby = models.CharField(max_length=500, blank=True, null=True)
-    seniorzy = models.OneToOneField(Seniorzy, on_delete=models.PROTECT)
-
-    class Meta:
-        db_table = 'karty_zdrowia'
-        verbose_name_plural = 'karty_zdrowia'
-
-    def __str__(self):
-        return f'Karta zdrowia {self.id}: {self.seniorzy.imie} {self.seniorzy.nazwisko}, {self.seniorzy.pesel}'
-
-
 class PrzyjmowaneLeki(models.Model):
-    lek = models.OneToOneField(Leki, on_delete=models.PROTECT)
-    karta_zdrowia = models.OneToOneField(KartyZdrowia, on_delete=models.PROTECT)
+    lek = models.ForeignKey(Leki, on_delete=models.PROTECT)
+    karta_zdrowia = models.ForeignKey(KartyZdrowia, on_delete=models.PROTECT)
     data_od = models.DateField()
     data_do = models.DateField()
     dawka = models.CharField(max_length=100)

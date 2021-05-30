@@ -4,26 +4,47 @@
 
 {% block body %}
 
-<div class="navbar navbar-expand-lg navbar-light bg-light">
+<div class="navbar navbar-expand-lg navbar-light bg-info">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'caretaker_seniors' %}">Opiekun</a>
+        <a class="navbar-brand text-light" href="{% url 'caretaker' %}">Opiekun</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'caretaker_seniors' %}">Seniorzy</a>
+                    <a class="nav-link text-light" href="{% url 'caretaker_seniors' %}"><b>Seniorzy</b></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'caretaker_medicines' %}">Leki</a>
+                    <a class="nav-link text-light" href="{% url 'caretaker_medicines' %}">Leki</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
 
-<ul>
-{% for senior in seniors %}
-<li>{{senior.imie}} {{senior.nazwisko}}</li>
-{% endfor %}
-</ul>
+<div class="m-2">
+<table class="table">
+  <thead class="thead-white">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Imie</th>
+      <th scope="col">Nazwisko</th>
+      <th scope="col">Pokój</th>
+      <th scope="col">Karta Zdrowia</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for senior in seniors %}
+        <tr>
+            <th scope="row" class="align-middle">{{senior.id}}</th>
+            <td class="align-middle">{{senior.imie}}</td>
+            <td class="align-middle">{{senior.nazwisko}}</td>
+            <td class="align-middle">{{seniors_rooms|get_item:senior.id}}</td>
+            <td class="align-middle"><a href="{% url 'caretaker_seniors' %}/healthcard/{{senior.id}}"><button type="button" class="btn btn-info m-0 p-1">Otwórz</button></a></td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+
 
 {% endblock body %}
