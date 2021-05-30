@@ -6,7 +6,7 @@
 
 <div class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'manager_workers' %}">Manager</a>
+        <a class="navbar-brand" href="{% url 'manager_seniors' %}">Manager</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -24,8 +24,8 @@
 </div>
 
 <ul>
-{% for worker in workers %}
-<li>{{worker.imie}} {{worker.nazwisko}}</li>
+{% for senior in seniors %}
+<li>{{senior.imie}} {{senior.nazwisko}}</li>
 {% endfor %}
 </ul>
 
