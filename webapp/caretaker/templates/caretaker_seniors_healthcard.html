@@ -1,0 +1,97 @@
+{% extends 'root.html' %}
+
+{% block title %}Panel Opiekuna{% endblock title %}
+
+{% block body %}
+
+<div class="navbar navbar-expand-lg navbar-light bg-info">
+    <div class="container-fluid">
+        <a class="navbar-brand text-light" href="{% url 'caretaker' %}">Opiekun</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{% url 'caretaker_seniors' %}">Seniorzy</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{% url 'caretaker_medicines' %}">Leki</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="m-2">
+<table class="table">
+  <thead class="thead-white">
+    <tr>
+      <th scope="col" style="white-space: nowrap; width: 1px;">Karta Zdrowia - {{healthcard.id}}</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <th scope="row" class="align-middle">ID seniora</th>
+        <td class="align-middle">{{senior.id}}</td>
+    </tr>
+    <tr>
+        <th scope="row" class="align-middle">Imie</th>
+        <td class="align-middle">{{senior.imie}}</td>
+    </tr>
+    <tr>
+        <th scope="row" class="align-middle">Nazwisko</th>
+        <td class="align-middle">{{senior.nazwisko}}</td>
+    </tr>
+    <tr>
+        <th scope="row" class="align-middle">PESEL</th>
+        <td class="align-middle">{{senior.pesel}}</td>
+    </tr>
+    <tr>
+        <th scope="row" class="align-middle">Choroby</th>
+        <td class="align-middle">{{healthcard.choroby}}</td>
+    </tr>
+    <tr>
+        <th scope="row" class="align-middle">Uczuelnia</th>
+        <td class="align-middle">{{healthcard.uczulenia}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<div class="divider py-1 bg-info"></div>
+<div class="m-2">
+<table class="table">
+  <thead class="thead-white">
+    <tr>
+      <th scope="col">Przyjmowane Leki</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <thead class="thead-white">
+    <tr>
+      <th scope="col">Nazwa</th>
+      <th scope="col">Producent</th>
+      <th scope="col">Dawka</th>
+      <th scope="col">Częstotliwość</th>
+      <th scope="col">Od</th>
+      <th scope="col">Do</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for assigned_medicine in assigned_medicines %}
+    <tr>
+        <th scope="row" class="align-middle">{{assigned_medicine.lek.nazwa}}</th>
+        <td class="align-middle">{{assigned_medicine.lek.producent}}</td>
+        <td class="align-middle">{{assigned_medicine.dawka}}</td>
+        <td class="align-middle">{{assigned_medicine.czestotliwosc}}</td>
+        <td class="align-middle">{{assigned_medicine.data_od}}</td>
+        <td class="align-middle">{{assigned_medicine.data_do}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% endblock body %}

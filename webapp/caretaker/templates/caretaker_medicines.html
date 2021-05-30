@@ -4,26 +4,59 @@
 
 {% block body %}
 
-<div class="navbar navbar-expand-lg navbar-light bg-light">
+<div class="navbar navbar-expand-lg navbar-light bg-info">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'caretaker_seniors' %}">Opiekun</a>
+        <a class="navbar-brand text-light" href="{% url 'caretaker' %}">Opiekun</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'caretaker_seniors' %}">Seniorzy</a>
+                    <a class="nav-link text-light" href="{% url 'caretaker_seniors' %}">Seniorzy</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'caretaker_medicines' %}">Leki</a>
+                    <a class="nav-link text-light" href="{% url 'caretaker_medicines' %}"><b>Leki</b></a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
 
-<ul>
-{% for medicine in medicines %}
-<li>{{medicine.nazwa}} - {{medicine.ilosc_opakowan}} szt.</li>
-{% endfor %}
-</ul>
+<div class="m-2">
+<table class="table">
+  <thead class="thead-white">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nazwa</th>
+      <th scope="col">Producent</th>
+      <th scope="col">Ilość Opakowań</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for medicine in medicines %}
+        <tr>
+            <th scope="row" class="align-middle">{{medicine.id}}</th>
+            <td class="align-middle">{{medicine.nazwa}}</td>
+            <td class="align-middle">{{medicine.producent}}</td>
+            <td class="align-middle">{{medicine.ilosc_opakowan}} szt.</td>
+            <td class="align-middle text-center">
+                <div class="d-flex justify-content-end">
+                    <div class="">
+                        <a href="{% url 'caretaker_medicines' %}/minus/{{medicine.id}}">
+                            <button type="button" class="btn btn-danger m-1 pl-3 pr-3">-</button>
+                        </a>
+                    </div>
+                    <div class="">
+                        <a href="{% url 'caretaker_medicines' %}/plus/{{medicine.id}}">
+                            <button type="button" class="btn btn-primary m-1 pl-3 pr-3">+</button>
+                        </a>
+                    </div>
+                </div>
+                
+            </td>
+        </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
 
 {% endblock body %}

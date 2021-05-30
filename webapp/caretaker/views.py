@@ -1,13 +1,48 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.template.defaulttags import register
+
+import datetime
 
 from database.models import *
 
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
+
 def seniors(request):
     seniors = Seniorzy.objects.all()
-    context = {'seniors': seniors}
+    seniors_rooms = {}
+    for senior in seniors:
+        room = "-"
+        if senior.lozka != None:
+            room = "Pokój nr {} - Piętro {}".format(senior.lozka.pokoje.numer, senior.lozka.pokoje.pietro)
+        seniors_rooms[senior.id] = room
+
+    context = {'seniors': seniors, 'seniors_rooms': seniors_rooms}
     return render(request, 'caretaker_seniors.html', context)
+
+def seniors_healthcard(request, id):
+    senior = Seniorzy.objects.get(id=id)
+    healthcard = senior.karty_zdrowia
+    all_assigned_medicines = PrzyjmowaneLeki.objects.all().filter(karta_zdrowia=healthcard)
+    assigned_medicines = [am for am in all_assigned_medicines if am.data_do >= datetime.date.today()]
+    context = {'senior': senior, 'healthcard': healthcard, 'assigned_medicines': assigned_medicines}
+    return render(request, 'caretaker_seniors_healthcard.html', context)
 
 def medicines(request):
     medicines = Leki.objects.all()
     context = {'medicines': medicines}
     return render(request, 'caretaker_medicines.html', context)
+
+def medicines_minus(request, id):
+    medicine = Leki.objects.get(id=id)
+    if medicine.ilosc_opakowan != 0:
+        medicine.ilosc_opakowan -= 1
+    medicine.save()
+    return redirect(medicines)
+
+def medicines_plus(request, id):
+    medicine = Leki.objects.get(id=id)
+    medicine.ilosc_opakowan += 1
+    medicine.save()
+    return redirect(medicines)
