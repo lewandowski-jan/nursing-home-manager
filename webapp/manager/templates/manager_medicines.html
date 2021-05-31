@@ -4,29 +4,73 @@
 
 {% block body %}
 
-<div class="navbar navbar-expand-lg navbar-light bg-light">
+<div class="navbar navbar-expand-lg navbar-light bg-info">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'manager_seniors' %}">Manager</a>
+        <a class="navbar-brand text-light" href="{% url 'manager' %}">Manager</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'manager_workers' %}">Pracownicy</a>
+                    <a class="nav-link text-light" href="{% url 'manager_workers' %}">Pracownicy</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'manager_medicines' %}">Leki</a>
+                    <a class="nav-link text-light" href="{% url 'manager_medicines' %}">Leki</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'manager_seniors' %}">Seniorzy</a>
+                    <a class="nav-link text-light" href="{% url 'manager_seniors' %}">Seniorzy</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
 
-<ul>
-{% for medicine in medicines %}
-<li>{{medicine.nazwa}} - {{medicine.ilosc_opakowan}} szt.</li>
-{% endfor %}
-</ul>
+<div class="m-2">
+    <table class="table">
+      <thead class="thead-white">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nazwa</th>
+          <th scope="col">Producent</th>
+          <th scope="col">Ilość Opakowań</th>
 
-{% endblock body %}
+
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <a href="{% url 'manager_medicines' %}">
+            <button type="button" class="btn btn-info m-1 pl-3 pr-3">Dodaj nowy</button>
+        </a>
+    
+        {% for medicine in medicines %}
+            <tr>
+                <th scope="row" class="align-middle">{{medicine.id}}</th>
+                <td class="align-middle">{{medicine.nazwa}}</td>
+                <td class="align-middle">{{medicine.producent}}</td>
+                <td class="align-middle">{{medicine.ilosc_opakowan}} szt.</td>
+                <td class="align-middle text-center">
+                    <div class="d-flex justify-content-end">
+                        <div class="">
+                            
+                            <form action="{% url 'manager_medicines' %}/add/{{medicine.id}}" method="POST">
+                                {% csrf_token %}
+                                <label for="amount">Ustaw nową ilość:</label>
+                                <input type="text" id="amount" name="new_amount">
+                                <input type="submit" value="Zatwierdź" class="btn btn-info m-1 pl-3 pr-3">
+
+                                <a href="{% url 'manager_medicines' %}">
+                                    <button type="button" class="btn btn-info m-1 pl-3 pr-3">Edytuj</button>
+                                </a>
+                                
+                              </form>
+                        </div>
+                    </div>
+                    
+                </td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    
+    {% endblock body %}
