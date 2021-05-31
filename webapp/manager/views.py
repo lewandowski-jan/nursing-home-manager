@@ -39,6 +39,13 @@ def medicines(request):
 
 def medicines_add(request, id):
     medicine = Leki.objects.get(id=id)
-    medicine.ilosc_opakowan += 1
+    input = (request.GET.get('amount'))
+
+    try:
+        input = int(input)
+    except ValueError:
+        return redirect(medicines)
+
+    medicine.ilosc_opakowan = input
     medicine.save()
     return redirect(medicines)
