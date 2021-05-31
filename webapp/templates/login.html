@@ -63,12 +63,13 @@
 </style>
 
 <body class="text-center">
-    <form class="form-signin" action="">
-        <h1 class="h3 mb-3 font-weight-normal">Zaloguj się!</h1>
+    <form class="form-signin" method="POST" action="/login/">
+        {% csrf_token %}
+        <h1 class="h3 mb-4 font-weight-normal">Zaloguj się</h1>
         <label class="sr-only" for="inputLogin">Login</label>
-        <input type="text" id="inputLogin" class="form-control" placeholder="Login" required autofocus>
+        <input type="text" id="inputLogin" name="login" class="form-control" placeholder="Login" required autofocus>
         <label class="sr-only" for="inputPassword">Hasło</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Hasło" required>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Hasło" required>
         <button class="btn btn-lg btn-info btn-block" type="submit">Zaloguj</button>
     </form>
 </body>
