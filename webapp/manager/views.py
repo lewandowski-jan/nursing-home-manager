@@ -38,14 +38,14 @@ def medicines(request):
     return render(request, 'manager_medicines.html', context)
 
 def medicines_add(request, id):
-    medicine = Leki.objects.get(id=id)
-    input = (request.GET.get('amount'))
+    if request.POST:
+        medicine = Leki.objects.get(id=id)
+        input = request.POST.get('new_amount')
+        try:
+            input = int(input)
+        except ValueError:
+            return redirect(medicines)
 
-    try:
-        input = int(input)
-    except ValueError:
-        return redirect(medicines)
-
-    medicine.ilosc_opakowan = input
-    medicine.save()
+        medicine.ilosc_opakowan = input
+        medicine.save()
     return redirect(medicines)

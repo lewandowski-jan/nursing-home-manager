@@ -31,10 +31,17 @@
           <th scope="col">Nazwa</th>
           <th scope="col">Producent</th>
           <th scope="col">Ilość Opakowań</th>
+
+
           <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
+
+        <a href="{% url 'manager_medicines' %}">
+            <button type="button" class="btn btn-info m-1 pl-3 pr-3">Dodaj nowy</button>
+        </a>
+    
         {% for medicine in medicines %}
             <tr>
                 <th scope="row" class="align-middle">{{medicine.id}}</th>
@@ -44,10 +51,11 @@
                 <td class="align-middle text-center">
                     <div class="d-flex justify-content-end">
                         <div class="">
-                            <form action="{% url 'manager_medicines' %}/add/{{medicine.id}}"form>
                             
+                            <form action="{% url 'manager_medicines' %}/add/{{medicine.id}}" method="POST">
+                                {% csrf_token %}
                                 <label for="amount">Ustaw nową ilość:</label>
-                                <input type="text" id="amount" name="amount">
+                                <input type="text" id="amount" name="new_amount">
                                 <input type="submit" value="Zatwierdź" class="btn btn-info m-1 pl-3 pr-3">
 
                                 <a href="{% url 'manager_medicines' %}">
