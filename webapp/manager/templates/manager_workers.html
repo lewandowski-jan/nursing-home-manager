@@ -4,29 +4,55 @@
 
 {% block body %}
 
-<div class="navbar navbar-expand-lg navbar-light bg-light">
+<div class="navbar navbar-expand-lg navbar-light bg-info">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'manager_workers' %}">Manager</a>
+        <a class="navbar-brand text-light" href="{% url 'manager' %}">Manager</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'manager_workers' %}">Pracownicy</a>
+                    <a class="nav-link text-light" href="{% url 'manager_workers' %}">Pracownicy</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'manager_medicines' %}">Leki</a>
+                    <a class="nav-link text-light" href="{% url 'manager_medicines' %}">Leki</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'manager_seniors' %}">Seniorzy</a>
+                    <a class="nav-link text-light" href="{% url 'manager_seniors' %}">Seniorzy</a>
                 </li>
             </ul>
         </div>
     </div>
 </div>
 
-<ul>
-{% for worker in workers %}
-<li>{{worker.imie}} {{worker.nazwisko}}</li>
-{% endfor %}
-</ul>
+<div class="m-2">
+    <table class="table">
+    <thead class="thead-white">
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Imie</th>
+        <th scope="col">Nazwisko</th>
+        <th scope="col">Stanowisko</th>
+        <th scope="col">Telefon</th>
+        <th scope="col">E-mail</th>
+        
+    </tr>
+    </thead>
+    <tbody>
+    {% for worker in workers %}
+        <tr>
+            <th scope="row" class="align-middle">{{worker.id}}</th>
+            <td class="align-middle">{{worker.imie}}</td>
+            <td class="align-middle">{{worker.nazwisko}}</td>
+            <td class="align-middle">{{worker.stanowiska.nazwa}}</td>
+            <td class="align-middle">{{worker.telefon}}</td>
+            <td class="align-middle">{{worker.adres_email}}</td>
+            
+            
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+
+
 
 {% endblock body %}
