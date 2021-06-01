@@ -40,9 +40,10 @@
       </thead>
       <tbody>
 
-        <a href="{% url 'manager_seniors' %}">
+        <a href="{% url 'manager_new_card' %}">
             <button type="button" class="btn btn-info m-1 pl-3 pr-3">Dodaj nowego</button>
         </a>
+
         {% for senior in seniors %}
             <tr>
                 <th scope="row" class="align-middle">{{senior.id}}</th>

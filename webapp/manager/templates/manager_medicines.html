@@ -55,13 +55,13 @@
                     <div class="d-flex justify-content-end">
                         <div class="">
                             
-                            <form action="{% url 'manager_medicines' %}/add/{{medicine.id}}" method="POST">
+                            <form action="{% url 'manager_medicines' %}/change_amount/{{medicine.id}}" method="POST">
                                 {% csrf_token %}
                                 <label for="amount">Ustaw nową ilość:</label>
                                 <input type="text" id="amount" name="new_amount">
                                 <input type="submit" value="Zatwierdź" class="btn btn-info m-1 pl-3 pr-3">
 
-                                <a href="{% url 'manager_medicines' %}">
+                                <a href="{% url 'manager_medicines' %}/edit/{{medicine.id}}">
                                     <button type="button" class="btn btn-info m-1 pl-3 pr-3">Edytuj</button>
                                 </a>
                                 
