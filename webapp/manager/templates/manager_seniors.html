@@ -16,7 +16,7 @@
                     <a class="nav-link text-light" href="{% url 'manager_medicines' %}">Leki</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="{% url 'manager_seniors' %}">Seniorzy</a>
+                    <a class="nav-link text-light" href="{% url 'manager_seniors' %}"><b>Seniorzy</b></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-light" href="{% url 'logout_user' %}">Wyloguj</a>
@@ -35,13 +35,15 @@
           <th scope="col">Nazwisko</th>
           <th scope="col">Pokój</th>
           <th scope="col">PESEL</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
 
-        <a href="{% url 'manager_seniors' %}">
+        <a href="{% url 'manager_new_card' %}">
             <button type="button" class="btn btn-info m-1 pl-3 pr-3">Dodaj nowego</button>
         </a>
+
         {% for senior in seniors %}
             <tr>
                 <th scope="row" class="align-middle">{{senior.id}}</th>
