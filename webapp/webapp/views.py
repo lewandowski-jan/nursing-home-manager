@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 
+def index(request):
+    return redirect('/login')
+
 def login_user(request):
     if request.POST:
         username = request.POST.get('login')
@@ -17,7 +20,7 @@ def login_user(request):
             elif str(groups[0]) == "Lekarz":
                 return redirect('/doctor')
         else: 
-            return render(request, 'login.html')
+            return render(request, 'failed_login.html')
     else:
         return render(request, 'login.html')
 
