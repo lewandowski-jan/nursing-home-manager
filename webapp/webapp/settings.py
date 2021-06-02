@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'database',
     'caretaker',
     'manager',
+    'doctor',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
