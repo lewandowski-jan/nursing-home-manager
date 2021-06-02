@@ -1,0 +1,77 @@
+{% extends 'root.html' %}
+
+{% block title %}Panel Lekarza{% endblock title %}
+
+{% block body %}
+
+<div class="navbar navbar-expand-lg navbar-light bg-info">
+    <div class="container-fluid">
+        <a class="navbar-brand text-light" href="{% url 'doctor' %}">Lekarz</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{% url 'doctor_seniors' %}"><b>Seniorzy</b></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{% url 'logout_user' %}">Wyloguj</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="m-2">
+    <table class="table">
+      <thead class="thead-white">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Imie</th>
+          <th scope="col">Nazwisko</th>
+          <th scope="col">PESEL</th>
+          <th scope="col">Karta Zdrowia</th>
+          <th scope="col">Leki</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {% for senior in seniors %}
+            <tr>
+                <th scope="row" class="align-middle">{{senior.id}}</th>
+                <td class="align-middle">{{senior.imie}}</td>
+                <td class="align-middle">{{senior.nazwisko}}</td>
+                <td class="align-middle">{{senior.pesel}}</td>
+
+                <td class="align-middle text-center">
+                    <div class="d-flex">
+                        <div class="">
+                            <a href="{% url 'doctor' %}seniors/card/{{senior.id}}">
+                                <button type="button" class="btn btn-info m-1 pl-3 pr-3">Otwórz</button>
+                            </a>
+                        </div>
+                        <div class="">
+                            <a href="#">
+                                <button type="button" class="btn btn-info m-1 pl-3 pr-3">Edytuj</button>
+                            </a>
+                        </div>
+                    </div>
+                </td>
+                    
+                <td class="align-middle text-center">
+                    <div class="d-flex">
+                        <div class="">
+                            <a href="#">
+                                <button type="button" class="btn btn-info m-1 pl-3 pr-3">Edytuj</button>
+                            </a>
+                        </div>
+                    </div>
+                </td>
+                
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    
+    
+    
+    {% endblock body %}

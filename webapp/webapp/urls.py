@@ -7,6 +7,7 @@ urlpatterns = [
     path('', views.index),
     path('caretaker/', include('caretaker.urls')),
     path('manager/', include('manager.urls')),
+    path('doctor/', include('doctor.urls')),
     path('admin/', admin.site.urls),
     path('login/', views.login_user, name='login_user'),
     path('logout/', views.logout_user, name='logout_user'),
