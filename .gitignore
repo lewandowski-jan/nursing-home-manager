@@ -3,8 +3,5 @@ env
 webapp/config.py
 webapp/dbsenior
 migrations/
-webapp/__pycache__/
-webapp/database/__pycache__/
-webapp/webapp/__pycache__/
-webapp/caretaker/__pycache__/
-webapp/manager/__pycache__/
+__pycache__/
+*.py[cod]
