@@ -42,7 +42,7 @@
     </thead>
     <tbody>
 
-        <a href="{% url 'manager_workers' %}">
+        <a href="{% url 'manager_new_postal' %}">
             <button type="button" class="btn btn-info m-1 pl-3 pr-3">Dodaj nowego</button>
         </a>
     {% for worker in workers %}
@@ -56,7 +56,7 @@
             <td class="align-middle text-center">
                 <div class="d-flex justify-content-end">
                     <div class="">
-                        <a href="{% url 'manager_workers' %}">
+                        <a href="{% url 'manager_workers' %}/edit/{{worker.id}}">
                             <button type="button" class="btn btn-info m-1 pl-3 pr-3">Edytuj</button>
                         </a>
                     </div>
