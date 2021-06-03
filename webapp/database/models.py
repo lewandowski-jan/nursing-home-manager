@@ -96,7 +96,7 @@ class Lozka(models.Model):
         verbose_name_plural = 'lozka'
     
     def __str__(self):
-        return f'Lozko {self.id}: Dł. = {self.dlugosc}cm, Antyodlezynowe: {self.czy_antyodlezynowe}'
+        return f'Lozko {self.id}: Dł. = {self.dlugosc}cm, Antyodlezynowe: {self.czy_antyodlezynowe}, Pokój nr{self.pokoje.numer}'
 
 @receiver(post_save, sender=Lozka)
 def post_save_lozka(sender, instance, **kwargs):
