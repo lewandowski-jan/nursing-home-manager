@@ -1,0 +1,75 @@
+{% extends 'root.html' %}
+
+{% block title %}Panel Lekarza{% endblock title %}
+
+{% block body %}
+
+<div class="navbar navbar-expand-lg navbar-light bg-info">
+    <div class="container-fluid">
+        <a class="navbar-brand text-light" href="{% url 'doctor' %}">Lekarz</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{% url 'doctor_seniors' %}"><b>Seniorzy</b></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="{% url 'logout_user' %}">Wyloguj</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="">
+    <a href="{% url 'doctor_seniors' %}/assigned_medicine/add/{{senior.id}}">
+        <button type="button" class="btn btn-info mx-3 mt-2 pl-3 pr-3">Przypisz nowy lek</button>
+    </a>
+</div>
+
+<div class="m-2">
+    <table class="table">
+        <thead class="thead-white">
+            <tr>
+            <th scope="col">{{senior.imie}} {{senior.nazwisko}}</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            </tr>
+        </thead>
+        <thead class="thead-white">
+            <tr>
+            <th scope="col">Nazwa</th>
+            <th scope="col">Producent</th>
+            <th scope="col">Dawka</th>
+            <th scope="col">Częstotliwość</th>
+            <th scope="col">Od</th>
+            <th scope="col">Do</th>
+            <th scope="col">Usuń</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for assigned_medicine in assigned_medicines %}
+            <tr>
+                <th scope="row" class="align-middle">{{assigned_medicine.lek.nazwa}}</th>
+                <td class="align-middle">{{assigned_medicine.lek.producent}}</td>
+                <td class="align-middle">{{assigned_medicine.dawka}}</td>
+                <td class="align-middle">{{assigned_medicine.czestotliwosc}}</td>
+                <td class="align-middle">{{assigned_medicine.data_od}}</td>
+                <td class="align-middle">{{assigned_medicine.data_do}}</td>
+                <td class="align-middle">
+                    <div class="">
+                        <a href="{% url 'doctor_seniors' %}/assigned_medicine/remove/{{assigned_medicine.id}}">
+                            <button type="button" class="btn btn-danger m-0 pl-3 pr-3">-</button>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock body %}

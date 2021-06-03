@@ -49,7 +49,7 @@
                             </a>
                         </div>
                         <div class="">
-                            <a href="#">
+                            <a href="{% url 'doctor' %}seniors/edit_card/{{senior.id}}">
                                 <button type="button" class="btn btn-info m-1 pl-3 pr-3">Edytuj</button>
                             </a>
                         </div>
@@ -59,7 +59,7 @@
                 <td class="align-middle text-center">
                     <div class="d-flex">
                         <div class="">
-                            <a href="#">
+                            <a href="{% url 'doctor_seniors' %}/assigned_medicines/{{senior.id}}">
                                 <button type="button" class="btn btn-info m-1 pl-3 pr-3">Edytuj</button>
                             </a>
                         </div>
