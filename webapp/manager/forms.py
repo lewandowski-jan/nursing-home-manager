@@ -87,6 +87,7 @@ class NewWorker(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Utwórz pracownika', css_class='btn-info'))
+        self.fields['data_zatrudnienia'] = forms.DateField(widget=forms.TextInput(attrs={'type': 'date'}))
 
 class NewMedicine(forms.ModelForm):
     class Meta:
