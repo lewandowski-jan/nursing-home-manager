@@ -184,7 +184,6 @@ def new_medicine(request):
 
         if form.is_valid():
             medicine = form.save(commit=False)
-            # worker.adresy = Adresy.objects.get(id=addressid)
             medicine.save()
         
         return redirect(medicines)

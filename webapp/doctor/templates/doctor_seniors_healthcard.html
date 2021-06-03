@@ -25,7 +25,13 @@
   <thead class="thead-white">
     <tr>
       <th scope="col" style="white-space: nowrap; width: 1px;">Karta Zdrowia - {{healthcard.id}}</th>
-      <th scope="col"></th>
+      <th scope="col">
+        <div class="d-flex justify-content-end">
+          <a href="{% url 'doctor' %}seniors/edit_card/{{senior.id}}">
+              <button type="button" class="btn btn-info m-0 pl-3 pr-3">Edytuj</button>
+          </a>
+      </div>
+      </th>
     </tr>
   </thead>
   <tbody>

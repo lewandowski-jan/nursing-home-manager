@@ -1,22 +1,16 @@
 {% extends 'root.html' %}
 {% load crispy_forms_tags %}
-{% block title %}Panel Managera{% endblock title %}
+{% block title %}Panel Lekarza{% endblock title %}
 
 {% block body %}
 
 <div class="navbar navbar-expand-lg navbar-light bg-info">
     <div class="container-fluid">
-        <a class="navbar-brand text-light" href="{% url 'manager' %}">Manager</a>
+        <a class="navbar-brand text-light" href="{% url 'manager' %}">Lekarz</a>
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="{% url 'manager_workers' %}">Pracownicy</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="{% url 'manager_medicines' %}">Leki</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="{% url 'manager_seniors' %}">Seniorzy</a>
+                    <a class="nav-link text-light" href="{% url 'doctor_seniors' %}"><b>Seniorzy</b></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-light" href="{% url 'logout_user' %}">Wyloguj</a>
@@ -24,6 +18,10 @@
             </ul>
         </div>
     </div>
+</div>
+
+<div class="mx-5 my-2">
+    <h3>{{senior.imie}} {{senior.nazwisko}}</h3>
 </div>
 
 <div class="mx-5 my-2">
