@@ -69,15 +69,21 @@
     <tr>
       <th scope="col">Przyjmowane Leki</th>
       
-      <a href="{% url 'doctor_seniors' %}/assigned_medicines/{{senior.id}}">
-        <button type="button" class="btn btn-info m-0 pl-3 pr-3" style="float: right" >Edytuj</button>
-      </a>
+      
 
       <th scope="col"></th>
       <th scope="col"></th>
       <th scope="col"></th>
       <th scope="col"></th>
-      <th scope="col"></th>
+      <th scope="col"> 
+
+        <a href="{% url 'doctor_seniors' %}/assigned_medicines/{{senior.id}}">
+          <button type="button" class="btn btn-info m-0 pl-3 pr-3" style="float: right" >Edytuj</button>
+        </a>
+
+      </th>
+
+
     </tr>
   </thead>
   <thead class="thead-white">
