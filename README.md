@@ -39,7 +39,7 @@ python manage.py makemigrations
 python manage.py makemigrations database
 python manage.py migrate
 python manage.py loaddata data.json
-(optional)python manage.py createsuperuser
+python manage.py createsuperuser
 python manage.py runserver
 ```
 ## Linux/MacOS
@@ -65,6 +65,6 @@ python manage.py makemigrations
 python manage.py makemigrations database
 python manage.py migrate
 python manage.py loaddata data.json
-(optional)python manage.py createsuperuser
+python manage.py createsuperuser
 python manage.py runserver
 ```
