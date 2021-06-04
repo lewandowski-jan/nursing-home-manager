@@ -38,7 +38,7 @@ Setup database from Django, create superuser and run server.
 python manage.py makemigrations
 python manage.py makemigrations database
 python manage.py migrate
-python manage.py loaddata data_sample.json
+python manage.py loaddata data.json
 (optional)python manage.py createsuperuser
 python manage.py runserver
 ```
