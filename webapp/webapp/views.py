@@ -13,12 +13,17 @@ def login_user(request):
         if user is not None:
             login(request, user)
             groups = user.groups.all()
-            if str(groups[0]) == "Opiekun":
-                return redirect('/caretaker')
-            elif str(groups[0]) == "Manager":
-                return redirect('/manager')
-            elif str(groups[0]) == "Lekarz":
-                return redirect('/doctor')
+            if user.is_superuser:
+                return redirect('/admin')
+            elif len(groups) > 0:
+                if str(groups[0]) == "Opiekun":
+                    return redirect('/caretaker')
+                elif str(groups[0]) == "Manager":
+                    return redirect('/manager')
+                elif str(groups[0]) == "Lekarz":
+                    return redirect('/doctor')
+            else:
+                return redirect('/')
         else: 
             return render(request, 'failed_login.html')
     else:

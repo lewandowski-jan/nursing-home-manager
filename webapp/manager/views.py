@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.template.defaulttags import register
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib import messages
 
 import datetime
 
@@ -48,10 +49,14 @@ def medicines_change_amount(request, id):
         try:
             input = int(input)
         except ValueError:
+            messages.add_message(request, messages.INFO, 'Podano niecałkowitą liczbę opakowań!')
             return redirect(medicines)
-
-        medicine.ilosc_opakowan = input
-        medicine.save()
+        
+        if input >= 0:
+            medicine.ilosc_opakowan = input
+            medicine.save()
+        else:
+            messages.add_message(request, messages.INFO, 'Podano ujemną ilość opakowań!')
     return redirect(medicines)
 
 @user_passes_test(must_be_manager, login_url='/login')
@@ -133,8 +138,10 @@ def new_postal(request):
 
     if request.POST:
         form = NewPostal(request.POST or None, request.FILES or None)
-
-        if form.is_valid():
+        obj = Poczty.objects.get(kod_poczty=form['kod_poczty'].value())
+        if obj:
+            return redirect('/manager/workers/new_address/' + str(obj.id))
+        elif form.is_valid():
             postal = form.save(commit=False)
             postal.save()
             return redirect('/manager/workers/new_address/' + str(postal.id))

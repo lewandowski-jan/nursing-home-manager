@@ -84,17 +84,17 @@ WSGI_APPLICATION = 'webapp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'dbsenior',
-    },
-    'oracle': {
         'ENGINE': 'django.db.backends.oracle',
         'NAME': NAME,
         'USER': USER,
         'PASSWORD': PASSWORD,
         'HOST': '127.0.0.1',
         'PORT': '1521',
-    }
+    },
+    'sqlite': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'dbsenior',
+    },
 }
 
 

@@ -44,6 +44,7 @@ class FormWorker(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.add_input(Submit('submit', 'Zapisz', css_class='btn-info')) 
+        self.fields['data_zatrudnienia'] = forms.DateField(widget=forms.TextInput(attrs={'type': 'date'}))
 
 class FormSenior(forms.ModelForm):
     class Meta:
