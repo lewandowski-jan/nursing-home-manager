@@ -50,6 +50,7 @@ class FormSenior(forms.ModelForm):
     class Meta:
         model = Seniorzy
         fields = "__all__"
+        exclude = ['karty_zdrowia']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

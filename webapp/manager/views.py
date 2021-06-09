@@ -138,9 +138,9 @@ def new_postal(request):
 
     if request.POST:
         form = NewPostal(request.POST or None, request.FILES or None)
-        obj = Poczty.objects.get(kod_poczty=form['kod_poczty'].value())
+        obj = Poczty.objects.all().filter(kod_poczty=form['kod_poczty'].value())
         if obj:
-            return redirect('/manager/workers/new_address/' + str(obj.id))
+                return redirect('/manager/workers/new_address/' + str(obj[0].id))
         elif form.is_valid():
             postal = form.save(commit=False)
             postal.save()
