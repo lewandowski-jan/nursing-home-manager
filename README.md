@@ -35,7 +35,6 @@ PASSWORD="userpassword"
 ```
 Setup database from Django, create superuser and run server.
 ```shell
-python manage.py makemigrations
 python manage.py makemigrations database
 python manage.py migrate
 python manage.py loaddata data.json
@@ -61,7 +60,6 @@ PASSWORD="userpassword"
 ```
 Setup database from Django, create superuser and run server.
 ```shell
-python manage.py makemigrations
 python manage.py makemigrations database
 python manage.py migrate
 python manage.py loaddata data.json
