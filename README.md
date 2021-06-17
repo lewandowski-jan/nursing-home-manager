@@ -6,6 +6,13 @@ Nursing home manager web application made with Django, using Oracle 19c database
 - Jan Lewandowski - https://github.com/iasiu
 - Oskar Zając - https://github.com/zoskar
 
+## Screenshots
+
+![Login page](pics/login.PNG)
+![Caretaker panel medicines view](pics/caretaker_medicines.PNG)
+![Manager panel seniors view](pics/manager_seniors.PNG)
+![Doctor panel edit seniors healthcard view](pics/doctor_seniors_healthcard_edit.PNG)
+
 # Setup
 
 ## Global Requirements
