@@ -8,10 +8,10 @@ Nursing home manager web application made with Django, using Oracle 19c database
 
 ## Screenshots
 
-![Login page](pics/login.PNG)
-![Caretaker panel medicines view](pics/caretaker_medicines.PNG)
-![Manager panel seniors view](pics/manager_seniors.PNG)
-![Doctor panel edit seniors healthcard view](pics/doctor_seniors_healthcard_edit.PNG)
+<img src="pics/login.PNG" alt="Login page" width="640" height="360">
+<img src="pics/caretaker_medicines.PNG" alt="Caretaker panel medicines view" width="640" height="360">
+<img src="pics/manager_seniors.PNG" alt="Manager panel seniors view" width="640" height="360">
+<img src="pics/doctor_seniors_healthcard_edit.PNG" alt="Doctor panel edit seniors healthcard view" width="640" height="360">
 
 # Setup
 
